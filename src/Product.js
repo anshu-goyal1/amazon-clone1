@@ -5,7 +5,7 @@ import { StateContext } from "./App";
 
 function Product({ id, title, image, price, rating }) {
   const stateContext = useContext(StateContext);
-  console.log("this i basket>>>", stateContext.basket);
+  //console.log("this i basket>>>", stateContext.basket);
 
   const addToBasket = () => {
     stateContext.dispatch({

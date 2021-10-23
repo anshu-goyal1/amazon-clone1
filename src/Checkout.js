@@ -11,6 +11,7 @@ function Checkout() {
     <div className="checkout">
       <div className="checkout_left">
         <div>
+          <h3>Hello, {checkoutContext.user?.email}</h3>
           <h2 className="checkout_title">Your shopping Basket</h2>
 
           {checkoutContext.basket.map((item) => (

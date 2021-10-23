@@ -1,3 +1,8 @@
+//import * as firebase from "firebase";
+import { initializeApp } from "firebase/app";
+import { getFirestore, collection, getDocs } from "firebase/firestore/lite";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
+
 const firebaseConfig = {
   apiKey: "AIzaSyC5ABeyeE4-kzfO9VeF40gRzpRpSlPlJQU",
   authDomain: "challenge-cd494.firebaseapp.com",
@@ -7,3 +12,10 @@ const firebaseConfig = {
   appId: "1:817168787903:web:91d8bee67f6006a401590a",
   measurementId: "G-8B5DVV4KN6",
 };
+
+const firebaseApp = initializeApp(firebaseConfig);
+
+const db = getFirestore();
+const auth = getAuth();
+
+export { db, auth, createUserWithEmailAndPassword };
