@@ -4,6 +4,7 @@ import "./Checkout.css";
 import CheckoutProduct from "./CheckoutProduct";
 import "./Subtotal";
 import Subtotal from "./Subtotal";
+import FlipMove from "react-flip-move";
 
 function Checkout() {
   const checkoutContext = useContext(StateContext);

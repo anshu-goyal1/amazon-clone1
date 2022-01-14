@@ -8,6 +8,13 @@ import reducer, { initialState } from "./reducer";
 import Login from "./Login";
 import { onAuthStateChanged } from "@firebase/auth";
 import { auth } from "./firebase";
+import Payment from "./Payment";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+
+const promise = loadStripe(
+  "pk_test_51K53CqSDPghL5DIMlTjMoYVz3BLFSQAxlFBJ0Aeqp0XiCnDi1SqzfyMt5JOi76YleV0l5RuUR0lbxxpGmsiK2cau00JqHhZ7Kj"
+);
 
 export const StateContext = React.createContext();
 
@@ -47,6 +54,12 @@ function App() {
             <Route path="/checkout">
               <Header />
               <Checkout />
+            </Route>
+            <Route path="/payment">
+              <Header />
+              <Elements stripe={promise}>
+                <Payment />
+              </Elements>
             </Route>
             <Route path="/">
               <Header />

@@ -2,9 +2,11 @@ import React, { useContext } from "react";
 import "./Subtotal.css";
 import CurrencyFormat from "react-currency-format";
 import { StateContext } from "./App";
-import { getBaksketTotal } from "./reducer";
+import { getBasketTotal } from "./reducer";
+import { useHistory } from "react-router-dom";
 
 function Subtotal() {
+  const history = useHistory();
   const subtotalContext = useContext(StateContext);
 
   return (
@@ -22,12 +24,12 @@ function Subtotal() {
           </>
         )}
         decimalScale={2}
-        value={getBaksketTotal(subtotalContext.basket)}
+        value={getBasketTotal(subtotalContext.basket)}
         displayType={"text"}
         thousandSeparator={true}
         prefix={"$"}
       />
-      <button>Proceed to Checkout</button>
+      <button onClick={(e) => history.push("/payment")}>Proceed to Checkout</button>
     </div>
   );
 }

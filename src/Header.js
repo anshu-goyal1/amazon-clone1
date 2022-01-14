@@ -8,10 +8,10 @@ import { signOut } from "@firebase/auth";
 import { auth } from "./firebase";
 
 function Header() {
-  const stateContext = useContext(StateContext);
+  const headerContext = useContext(StateContext);
 
   const handleAuthentication = () => {
-    if (stateContext.user) {
+    if (headerContext.user) {
       signOut(auth);
     }
   };
@@ -32,10 +32,12 @@ function Header() {
       </div>
 
       <div className="header_nav">
-        <Link to={!stateContext.user && "/login"}>
+        <Link to={!headerContext.user && "/login"}>
           <div onClick={handleAuthentication} className="header_option">
-            <span className="header_optionLineOne">Hello Guest</span>
-            <span className="header_optionLineTwo">{stateContext.user ? "Sign Out" : "Sign In"}</span>
+            <span className="header_optionLineOne">
+              Hello {!headerContext.user ? "Guest" : headerContext.user.email}
+            </span>
+            <span className="header_optionLineTwo">{headerContext.user ? "Sign Out" : "Sign In"}</span>
           </div>
         </Link>
         <div className="header_option">
@@ -49,7 +51,7 @@ function Header() {
         <Link to="/checkout">
           <div className="header_optionBasket">
             <ShoppingBasketIcon />
-            <span className="header_optionLineTwo header_basketCount">{stateContext.basket?.length}</span>
+            <span className="header_optionLineTwo header_basketCount">{headerContext.basket?.length}</span>
           </div>
         </Link>
       </div>
