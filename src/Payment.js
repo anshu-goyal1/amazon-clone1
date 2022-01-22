@@ -19,7 +19,7 @@ function Payment() {
   const [error, setError] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const [succeeded, setSucceeded] = useState(false);
-  const [processing, setProcessing] = useState(true);
+  const [processing, setProcessing] = useState(false);
   const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
@@ -35,19 +35,21 @@ function Payment() {
     };
     getClientSecret();
   }, [paymentContext.basket]);
+  console.log("THE SECRET IS>>>", clientSecret);
 
   const handleSubmit = async (event) => {
     //stripe function
     event.preventDefault();
     setProcessing(true);
 
-    const payload = await stripe
+    const result = await stripe
       .confirmCardPayment(clientSecret, {
         payment_method: {
           card: elements.getElement(CardElement),
         },
       })
       .then(({ paymentIntent }) => {
+        //.then((payload)={payload.paymentIntent})
         //desctructered responese
         //paymentIntent= payment confimation
         setSucceeded(true);
