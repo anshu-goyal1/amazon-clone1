@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import "./CheckoutProduct.css";
 import { StateContext } from "./App";
 
-function CheckoutProduct({ id, image, title, price, rating }) {
+function CheckoutProduct({ id, image, title, price, rating, hideButton }) {
   const checkoutProductContext = useContext(StateContext);
 
   const removeFromBasket = () => {
@@ -29,7 +29,7 @@ function CheckoutProduct({ id, image, title, price, rating }) {
               <p>🌟</p>
             ))}
         </div>
-        <button onClick={removeFromBasket}>Remove from basket </button>
+        {!hideButton && <button onClick={removeFromBasket}>Remove from basket </button>}
       </div>
     </div>
   );

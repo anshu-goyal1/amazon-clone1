@@ -7,6 +7,8 @@ import CheckoutProduct from "./CheckoutProduct";
 import "./Payment.css";
 import { getBasketTotal } from "./reducer";
 import axios from "./axios";
+import { db } from "./firebase";
+import { addDoc, collection } from "firebase/firestore";
 
 function Payment() {
   const paymentContext = useContext(StateContext);
@@ -49,12 +51,43 @@ function Payment() {
         },
       })
       .then(({ paymentIntent }) => {
-        //.then((payload)={payload.paymentIntent})
+        //then((payload)={payload.paymentIntent})
         //desctructered responese
         //paymentIntent= payment confimation
+
+        /*const dbData = db.collection("users").doc(paymentContext.user?.uid).collection("orders");
+
+        dbData.set({
+          basket: paymentContext.basket,
+          amount: paymentIntent.amount,
+          created: paymentIntent.created,
+        });
+*/
+
+        try {
+          const docData = {
+            basket: paymentContext.basket,
+            amount: paymentIntent.amount,
+            created: paymentIntent.created,
+          };
+          const docRef = addDoc(collection(db, "users", paymentContext.user?.uid, "orders"), docData);
+          console.log("Document written with ID: ", docRef.id);
+        } catch (e) {
+          console.error("Error adding document: ", e);
+        }
+        console.log(paymentContext.user);
+        /*      
+
+        const messageRef = doc(db, "users", "paymentContext.user?.uid", "orders");
+        setDoc(messageRef, docData);
+*/
         setSucceeded(true);
         setError(null);
         setProcessing(false);
+
+        paymentContext.dispatch({
+          type: "EMPTY_BASKET",
+        });
 
         history.replace("./orders");
       });
